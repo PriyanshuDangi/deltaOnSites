@@ -203,11 +203,11 @@ function clear() {
 }
 
 const drawAgain = () => {
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  myGraph.drawXAxis();
+  myGraph.drawYAxis();
+  myGraph.drawTicks();
   func.forEach((f) => {
-    c.clearRect(0, 0, canvas.width, canvas.height);
-    myGraph.drawXAxis();
-    myGraph.drawYAxis();
-    myGraph.drawTicks();
     myGraph.drawEquation(
       function (x) {
         try {
