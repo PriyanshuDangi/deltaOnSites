@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  background-color: #eee;
+}
+#tools {
+  text-align: center;
+  padding: 20px 0;
+  background: #aaa;
+}
+
+#tools button {
+  font-size: 32px;
+  margin: 5px;
+}
+
+#editorContainer {
+  display: flex;
+  height: 80vh;
+  align-items: center;
+}
+
+#editor {
+  background-color: white;
+  height: 60vh;
+  width: 60vw;
+  padding: 5px;
+  border: solid 1px;
+  margin: auto;
+}
