@@ -13,7 +13,7 @@ function Graph(ticksOnAxis) {
   this.tickSize = 5;
   this.minX = -canvas.width / 2;
   this.maxX = canvas.width / 2;
-  this.xIncrement = (this.maxX - this.minX) / 10000;
+  this.xIncrement = (this.maxX - this.minX) / 1000;
   this.drawEquation = function (equation, color, thickness) {
     c.save();
     c.translate(canvas.width / 2, canvas.height / 2);
@@ -21,7 +21,12 @@ function Graph(ticksOnAxis) {
     c.scale(this.tickInPixel, -this.tickInPixel);
     c.beginPath();
     c.moveTo(this.minX, equation(this.minX));
+
     for (var x = this.minX; x <= this.maxX; x += this.xIncrement) {
+      if (err) {
+        console.log(err);
+        break;
+      }
       c.lineTo(x, equation(x));
     }
     c.restore();
@@ -111,15 +116,28 @@ let myGraph = new Graph(10);
 myGraph.drawXAxis();
 myGraph.drawYAxis();
 myGraph.drawTicks();
-
+let func = [];
+let err;
 const input = document.querySelector("#functionInput");
 const form = document.querySelector("form");
 form.addEventListener("submit", (event) => {
+  err = null;
   event.preventDefault();
   console.log(input.value);
+  func.push({
+    value: input.value,
+    color: document.querySelector("#colorInput").value,
+    thickness: document.querySelector("#thicknessInput").value,
+  });
   myGraph.drawEquation(
     function (x) {
-      return eval(input.value);
+      try {
+        return eval(input.value);
+      } catch (error) {
+        err = error.message;
+        alert(error.message);
+        console.log(error);
+      }
     },
     document.querySelector("#colorInput").value,
     document.querySelector("#thicknessInput").value
@@ -137,14 +155,37 @@ const addFuction = (fn) => {
   input.focus();
 };
 
+function zoom() {
+  c.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 const coordinate = document.getElementById("coordinate");
 const change = document.getElementById("change");
 change.addEventListener("click", clear);
-function clear(event) {
+function clear() {
+  err = null;
   c.clearRect(0, 0, canvas.width, canvas.height);
-  myGraph = new Graph(parseInt(coordinate.value) || 10);
+  myGraph = new Graph(parseInt(40 / coordinate.value) || 10);
+  // myGraph = new Graph(parseInt(5));
   myGraph.drawXAxis();
   myGraph.drawYAxis();
   myGraph.drawTicks();
+  console.log(func);
+  func.forEach((f) => {
+    console.log(f);
+    myGraph.drawEquation(
+      function (x) {
+        try {
+          return eval(f.value);
+        } catch (error) {
+          err = error.message;
+          alert(error.message);
+          console.log(error);
+        }
+      },
+      f.color,
+      f.thickness
+    );
+  });
   input.value = "";
 }
