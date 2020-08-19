@@ -12,7 +12,20 @@ body {
   font-size: 32px;
   margin: 5px;
 }
-
+#tools select {
+  font-size: 20px;
+  padding: 10px 0 2px;
+}
+#tools input {
+  height: 30px;
+  /* height: 0;
+  width: 0;
+  visibility: hidden; */
+}
+button.active {
+  background-color: black;
+  color: white;
+}
 #editorContainer {
   display: flex;
   height: 80vh;
