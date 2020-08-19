@@ -8,12 +8,17 @@ canvas {
 .container {
   display: flex;
 }
-.left,
-.right {
+.left {
   display: flex;
+  width: 30%;
   justify-content: center;
   align-items: center;
+}
+.right {
+  margin-top: 40px;
+  display: flex;
   width: 30%;
+  justify-content: center;
 }
 form {
   width: 90%;

@@ -120,6 +120,7 @@ let func = [];
 let err;
 const input = document.querySelector("#functionInput");
 const form = document.querySelector("form");
+const history = document.getElementById("history");
 form.addEventListener("submit", (event) => {
   err = null;
   event.preventDefault();
@@ -136,19 +137,26 @@ form.addEventListener("submit", (event) => {
       } catch (error) {
         err = error.message;
         alert(error.message);
-        c.restore();
-        c.save();
-        c.clearRect(0, 0, canvas.width, canvas.height);
-        myGraph.drawXAxis();
-        myGraph.drawYAxis();
-        myGraph.drawTicks();
-        func = [];
+        // c.restore();
+        // c.save();
+        // c.clearRect(0, 0, canvas.width, canvas.height);
+        // myGraph.drawXAxis();
+        // myGraph.drawYAxis();
+        // myGraph.drawTicks();
+        // func = [];
+        func.pop();
         console.log(error);
       }
     },
     document.querySelector("#colorInput").value,
     document.querySelector("#thicknessInput").value
   );
+  if (!err) {
+    let content = `<div><p>Function: <span>${input.value}</span></p>
+  <p>Color: <span>${document.querySelector("#colorInput").value}</span></p>
+  <div>`;
+    history.innerHTML += content;
+  }
 });
 
 const addFuction = (fn) => {
@@ -159,6 +167,7 @@ const addFuction = (fn) => {
   } else if (fn == 2) {
     input.value += "Math.tan(x)";
   }
+
   input.focus();
 };
 
