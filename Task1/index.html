@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <form>
+          <div>
+            <label>Function</label>
+            <input type="text" required id="functionInput" />
+            <div>
+              <button type="button" onClick="addFuction(0)">
+                Sin(x)
+              </button>
+              <button type="button" onClick="addFuction(1)">Cos(x)</button>
+              <button type="button" onClick="addFuction(2)">Tan(x)</button>
+            </div>
+          </div>
+          <div>
+            <label>Color</label>
+            <input type="color" required id="colorInput" />
+          </div>
+          <div>
+            <label>Thickness</label>
+            <input
+              type="number"
+              required
+              id="thicknessInput"
+              min="0"
+              value="1"
+            />
+          </div>
+          <div><button id="submit">DRAW</button></div>
+        </form>
+      </div>
+      <canvas></canvas>
+      <div class="right">
+        <div>
+          <div>
+            <label>Co-ordinate / Zoom</label>
+            <input type="number" required id="coordinate" min="5" value="10" />
+          </div>
+          <div><button type="button" id="change">Change</button></div>
+        </div>
+      </div>
+    </div>
+    <script src="./canvas.js"></script>
+  </body>
+</html>
