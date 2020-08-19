@@ -119,16 +119,18 @@ myGraph.drawTicks();
 let func = [];
 let err;
 const input = document.querySelector("#functionInput");
-const form = document.querySelector("form");
+const form = document.querySelector("#functionForm");
 const history = document.getElementById("history");
 form.addEventListener("submit", (event) => {
   err = null;
   event.preventDefault();
   console.log(input.value);
+  let number = func.length;
   func.push({
     value: input.value,
     color: document.querySelector("#colorInput").value,
     thickness: document.querySelector("#thicknessInput").value,
+    number: number,
   });
   myGraph.drawEquation(
     function (x) {
@@ -151,13 +153,22 @@ form.addEventListener("submit", (event) => {
     document.querySelector("#colorInput").value,
     document.querySelector("#thicknessInput").value
   );
+  // Color: <span>${document.querySelector("#colorInput").value}</span>
   if (!err) {
-    let content = `<div><p>Function: <span>${input.value}</span></p>
-  <p>Color: <span>${document.querySelector("#colorInput").value}</span></p>
+    let content = `<div>${number + 1}). Function: <span>${input.value}</span>
+  
+  <input type="color" value="${
+    document.querySelector("#colorInput").value
+  }" onchange="changeMyColor(event, ${number})"/>
   <div>`;
     history.innerHTML += content;
   }
 });
+
+const changeMyColor = (event, number) => {
+  func[number].color = event.target.value;
+  drawAgain();
+};
 
 const addFuction = (fn) => {
   if (fn == 0) {
@@ -183,12 +194,20 @@ function clear() {
   c.clearRect(0, 0, canvas.width, canvas.height);
   myGraph = new Graph(parseInt(40 / coordinate.value) || 10);
   // myGraph = new Graph(parseInt(5));
-  myGraph.drawXAxis();
-  myGraph.drawYAxis();
-  myGraph.drawTicks();
+  // myGraph.drawXAxis();
+  // myGraph.drawYAxis();
+  // myGraph.drawTicks();
   console.log(func);
+  drawAgain();
+  input.value = "";
+}
+
+const drawAgain = () => {
   func.forEach((f) => {
-    console.log(f);
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    myGraph.drawXAxis();
+    myGraph.drawYAxis();
+    myGraph.drawTicks();
     myGraph.drawEquation(
       function (x) {
         try {
@@ -203,5 +222,4 @@ function clear() {
       f.thickness
     );
   });
-  input.value = "";
-}
+};

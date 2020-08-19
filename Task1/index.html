@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <div class="left">
-        <form>
+        <form id="functionForm">
           <div>
             <label>Function</label>
             <input type="text" required id="functionInput" />
@@ -44,10 +44,20 @@
       <div class="right">
         <div>
           <div>
-            <label>Scale (40/ value) </label>
-            <input type="number" required id="coordinate" min="5" value="4" />
+            <form id="scaleForm">
+              <div>
+                <label>Scale (40/ value) </label>
+                <input
+                  type="number"
+                  required
+                  id="coordinate"
+                  min="5"
+                  value="4"
+                />
+              </div>
+              <div><button type="button" id="change">Change</button></div>
+            </form>
           </div>
-          <div><button type="button" id="change">Change</button></div>
           <div>
             <div>HISTORY:</div>
             <div id="history"></div>
