@@ -136,6 +136,13 @@ form.addEventListener("submit", (event) => {
       } catch (error) {
         err = error.message;
         alert(error.message);
+        c.restore();
+        c.save();
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        myGraph.drawXAxis();
+        myGraph.drawYAxis();
+        myGraph.drawTicks();
+        func = [];
         console.log(error);
       }
     },
