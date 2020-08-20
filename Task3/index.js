@@ -55,14 +55,6 @@ app.get("/name", async (req, res) => {
         });
       }
     }
-
-    // if (typeof inBetween === "string") {
-    //   message = "request time out";
-    // } else {
-    //   message = inBetween.length;
-    //   inBetween.unshift(req.query.artist1);
-    //   inBetween.push(req.query.artist2);
-    // }
     console.log(inBetweenDetails);
     res.render("home", {
       artist1Name: req.query.artist1,
@@ -73,17 +65,9 @@ app.get("/name", async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    if (err.message) {
-      return res.render("home", {
-        inBetweenDetails: null,
-        error: err.message,
-        artist1Name: "",
-        artist2Name: "",
-      });
-    }
     res.render("home", {
       inBetweenDetails: null,
-      error: "Sorry! there's problem right now. Please try later",
+      error: "Sorry! there's problem right now. Please try again later",
       artist1Name: "",
       artist2Name: "",
     });

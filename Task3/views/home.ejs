@@ -27,7 +27,7 @@
         left: 0;
         background-color: #111;
         display: flex;
-        align-items: center;
+        /* align-items: center; */
         justify-content: center;
       }
 
@@ -73,6 +73,11 @@
         font-size: 30px;
       }
 
+      h1 {
+        color: wheat;
+        margin-bottom: 150px;
+      }
+
       /* .card div:first-of-type{
         display: flex;
         font-size: large;
@@ -83,6 +88,7 @@
     <div>
       <div class="sidenav">
         <form method="GET" action="/name">
+          <h1>Spotify Artists</h1>
           <div>
             <label for="artist1">Artist1</label>
             <input
@@ -100,7 +106,7 @@
               type="string"
               name="artist2"
               required
-              value="<%= artist1Name %>"
+              value="<%= artist2Name %>"
             />
           </div>
           <button>GET</button>

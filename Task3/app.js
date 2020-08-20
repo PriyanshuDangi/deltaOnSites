@@ -1,26 +1,23 @@
 const { getRelatedArtist, getArtist } = require("./spotify");
-let arrays = [];
-let current = 0;
+let arrays = []; //all the ids will be stored
+let idsChecked = [];
+let current = 0; // which number of id from arrays is to be checked
+let alreadyDone = 0;
+
+// to start finding the shortest path
+//pre configure before sending requests
 const findPath = async (authToken, id, artist2Id) => {
   arrays = [];
   current = 0;
+  alreadyDone = 0;
+  idsChecked = [];
   const inBetween = await shortestPath(authToken, id, artist2Id);
-  // if (typeof inBetween === "number") {
-  //   return "request time out";
-  // }
-  // let inBetweenDetails = [];
-  // for (let id = 0; id < inBetween.length; id++) {
-  //   let res = await getArtist(authToken, inBetween[id]);
-  //   console.log(res.name);
-  //   inBetweenDetails.push(res.name);
-  // }
-  // return inBetweenDetails;
   return inBetween;
 };
 
-// shortestPath(artist1Id);
 async function shortestPath(authToken, id, artist2Id) {
   let artists = await getRelatedArtist(authToken, id, artist2Id);
+  idsChecked.push(id);
   arrays.push(...artists);
   let inBetween;
   // console.log(arrays);
@@ -36,6 +33,11 @@ async function shortestPath(authToken, id, artist2Id) {
     }
     return inBetween;
   } else {
+    while (current >= 20 && idsChecked.includes(arrays[current])) {
+      current++;
+      alreadyDone++;
+      console.log("already done", alreadyDone);
+    }
     console.log(current);
     if (current > 400) {
       return -1;
