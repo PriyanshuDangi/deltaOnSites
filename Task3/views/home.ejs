@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Lato", sans-serif;
+        margin: 0;
+      }
+      body > div {
+        min-height: 100vh;
+        width: 100vw;
+        display: flex;
+      }
+
+      .sidenav {
+        /* height: 100%; */
+        width: 25%;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      label {
+        color: #f1f1f1;
+        font-size: 30px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      form {
+        display: flex;
+        flex-flow: column;
+      }
+      form div {
+        display: flex;
+        flex-flow: column;
+      }
+
+      form input {
+        font-size: 16px;
+      }
+
+      form button {
+        margin-top: 20px;
+        font-size: 24px;
+      }
+
+      .main {
+        flex-grow: 1;
+        background: turquoise;
+      }
+
+      .imageContainer {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .arrow {
+        width: 40px;
+        font-size: 30px;
+      }
+
+      /* .card div:first-of-type{
+        display: flex;
+        font-size: large;
+      } */
+    </style>
+  </head>
+  <body>
+    <div>
+      <div class="sidenav">
+        <form method="GET" action="/name">
+          <div>
+            <label for="artist1">Artist1</label>
+            <input
+              id="artist1"
+              type="string"
+              name="artist1"
+              required
+              value="<%= artist1Name %>"
+            />
+          </div>
+          <div>
+            <label for="artist2">Artist2</label
+            ><input
+              id="artist2"
+              type="string"
+              name="artist2"
+              required
+              value="<%= artist1Name %>"
+            />
+          </div>
+          <button>GET</button>
+        </form>
+      </div>
+      <div class="main">
+        <div class="imageContainer">
+          <% if(error){ %>
+          <b><%=error %></b>
+          <% } else if(inBetweenDetails){ %> <% for(let i=0 ; i <
+          inBetweenDetails.length; i++ ) {%>
+          <div class="card">
+            <div>
+              <img src="<%= inBetweenDetails[i].image.url %>" />
+              <p><%= inBetweenDetails[i].name %></p>
+            </div>
+          </div>
+          <% if(i < inBetweenDetails.length - 1){ %>
+          <div class="arrow">
+            &#8594;
+          </div>
+          <% } %> <% } %> <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
