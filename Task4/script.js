@@ -1,11 +1,11 @@
 const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+const context = canvas.getContext("2d");
 canvas.width = 500;
 canvas.height = 500;
 
-const resolution = 10;
-const cols = Math.floor(canvas.width / resolution);
-const rows = Math.floor(canvas.height / resolution);
+const pixel = 10;
+const cols = Math.floor(canvas.width / pixel);
+const rows = Math.floor(canvas.height / pixel);
 
 let isUpdating = false;
 
@@ -19,13 +19,15 @@ const buildGrid = () => {
 };
 
 let grid = buildGrid();
+// to restart/reoder the grid
 function restart() {
   canvas.addEventListener("click", click);
   grid = buildGrid();
-  render(grid);
+  show(grid);
   isUpdating = false;
 }
 
+// start the animation
 function start() {
   canvas.removeEventListener("click", click);
   isUpdating = true;
@@ -35,7 +37,7 @@ function start() {
 // update();
 function update() {
   grid = nextGen(grid);
-  render(grid);
+  show(grid);
   if (isUpdating) {
     requestAnimationFrame(update);
   }
@@ -45,46 +47,47 @@ const mouse = {
   x: canvas.width,
   y: canvas.height,
 };
-
+// to toggle the color on click
 function click(event) {
   mouse.x = event.x - canvas.offsetLeft;
   mouse.y = event.y - canvas.offsetTop;
-  let c = Math.floor(mouse.x / resolution);
-  let r = Math.floor(mouse.y / resolution);
+  let c = Math.floor(mouse.x / pixel);
+  let r = Math.floor(mouse.y / pixel);
   grid[c][r] = !grid[c][r];
-  //   render(grid);
-  ctx.beginPath();
-  ctx.rect(c * resolution, r * resolution, resolution, resolution);
-  ctx.fillStyle = grid[c][r] ? "black" : "white";
-  ctx.fill();
-  ctx.stroke();
+  //   show(grid);
+  context.beginPath();
+  context.rect(c * pixel, r * pixel, pixel, pixel);
+  context.fillStyle = grid[c][r] ? "black" : "white";
+  context.fill();
+  context.stroke();
 }
 
+// to get the next generation grid
 function nextGen(grid) {
   const nextGen = grid.map((arr) => [...arr]);
   for (let col = 0; col < grid.length; col++) {
     for (let row = 0; row < grid[col].length; row++) {
-      const cell = grid[col][row];
+      const block = grid[col][row];
       let numNeighbours = 0;
       for (let i = -1; i < 2; i++) {
         for (let j = -1; j < 2; j++) {
           if (i === 0 && j === 0) {
             continue;
           }
-          const x_cell = col + i;
-          const y_cell = row + j;
-          if (x_cell >= 0 && y_cell >= 0 && x_cell < rows && y_cell < cols) {
+          const x = col + i;
+          const y = row + j;
+          if (x >= 0 && y >= 0 && x < rows && y < cols) {
             const currentNeighbour = grid[col + i][row + j];
             numNeighbours += currentNeighbour;
           }
         }
       }
       //rules
-      if (cell === 1 && numNeighbours < 2) {
+      if (block === 1 && numNeighbours < 2) {
         nextGen[col][row] = 0;
-      } else if (cell === 1 && numNeighbours > 3) {
+      } else if (block === 1 && numNeighbours > 3) {
         nextGen[col][row] = 0;
-      } else if (cell === 0 && numNeighbours === 3) {
+      } else if (block === 0 && numNeighbours === 3) {
         nextGen[col][row] = 1;
       }
     }
@@ -92,19 +95,19 @@ function nextGen(grid) {
   return nextGen;
 }
 
-function render(grid) {
+function show(grid) {
   for (let col = 0; col < grid.length; col++) {
     for (let row = 0; row < grid[col].length; row++) {
-      const cell = grid[col][row];
+      const block = grid[col][row];
 
-      ctx.beginPath();
-      ctx.rect(col * resolution, row * resolution, resolution, resolution);
-      ctx.fillStyle = cell ? "black" : "white";
-      ctx.fill();
-      ctx.stroke();
+      context.beginPath();
+      context.rect(col * pixel, row * pixel, pixel, pixel);
+      context.fillStyle = block ? "black" : "white";
+      context.fill();
+      context.stroke();
     }
   }
 }
 
-render(grid);
+show(grid);
 canvas.addEventListener("click", click);
