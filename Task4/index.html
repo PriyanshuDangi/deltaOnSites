@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conway's Game Of Life</title>
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        /* justify-content: center; */
+        height: 100vh;
+      }
+      .left {
+        width: 30%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: space-around;
+        background-color: aqua;
+        padding: 100px auto;
+      }
+      .mid {
+        width: 100%;
+      }
+      .button {
+        width: 80%;
+        margin: 20px auto;
+      }
+      .button button {
+        width: 100%;
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+      .bottom {
+        display: flex;
+        flex-flow: column;
+      }
+      .bottom b {
+        font-size: 20px;
+      }
+      .right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">
+      <div class="heading">
+        <h1>Conway's Game Of Life</h1>
+      </div>
+      <div class="mid">
+        <div class="button">
+          <button onclick="start()">Start</button>
+        </div>
+        <div class="button">
+          <button onclick="restart()">Re Order</button>
+        </div>
+      </div>
+      <div class="bottom">
+        <b>1.) Tap on blocks to toggle the color.</b>
+        <b>2.) Click on Start To Start It</b>
+        <b>3.) Afrer completing, click on reorder</b>
+      </div>
+    </div>
+    <div class="right">
+      <canvas></canvas>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
